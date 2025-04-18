@@ -39,7 +39,7 @@ def get_user(user_id: int):
             }
         )
     
-@router.post("/user")
+@router.post("/users")
 def create_user(user: User):
 
     if user_services.create_user(user):
@@ -59,7 +59,7 @@ def create_user(user: User):
             }
         )
     
-@router.put("/user")
+@router.put("/users")
 def update_user(updated_user: User):
     if user_services.update_user(updated_user):
         return JSONResponse(
@@ -78,7 +78,7 @@ def update_user(updated_user: User):
             }
         )
     
-@router.delete("/user/{user_id}")
+@router.delete("/users/{user_id}")
 def delete_user(user_id: int):
     if user_services.delete_user(user_id):
         return JSONResponse(
