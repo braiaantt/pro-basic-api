@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from app.services import user_services
 from app.models.user_model import User
@@ -9,13 +9,16 @@ router = APIRouter()
 def get_all_users():
     users = user_services.get_all_users()
 
-    return JSONResponse(
+    if len(users) != 0:
+        return JSONResponse(
         status_code=200,
         content={
             "success" : True,
             "data" : [user.model_dump() for user in users]
         }
     )
+    else:
+        raise HTTPException(status_code=404, detail="La lista de usuarios está vacía!")
 
 @router.get("/{user_id}")
 def get_user(user_id: int):
@@ -30,14 +33,7 @@ def get_user(user_id: int):
             }
         )
     else:
-        return JSONResponse(
-            status_code=404,
-            content={
-                "success" : False,
-                "status_code" : 404,
-                "message" : f"El usuario {user_id} no existe!"
-            }
-        )
+        raise HTTPException(status_code=404, detail=f"El usuario {user_id} no existe!")
     
 @router.post("")
 def create_user(user: User):
@@ -51,13 +47,8 @@ def create_user(user: User):
             }
         )
     else:
-        return JSONResponse(
-            status_code=409,
-            content={
-                "success" : False,
-                "message" : f"El id '{user.id}' ya está en uso!"
-            }
-        )
+        raise HTTPException(status_code=409, detail=f"El id {user.id} ya está en uso!")
+        
     
 @router.put("")
 def update_user(updated_user: User):
@@ -70,13 +61,7 @@ def update_user(updated_user: User):
             }
         )
     else:
-        return JSONResponse(
-            status_code=404,
-            content={
-                "success" : False,
-                "message" : f"El usuario '{updated_user.id}' no existe!"
-            }
-        )
+        raise HTTPException(status_code=404, detail=f"El usuario {updated_user.id} no existe!")
     
 @router.delete("/{user_id}")
 def delete_user(user_id: int):
@@ -89,10 +74,4 @@ def delete_user(user_id: int):
             }
         )
     else:
-        return JSONResponse(
-            status_code=404,
-            content={
-                "success" : False,
-                "message" : f"El usuario '{user_id} no existe!"
-            }
-        )
+        raise HTTPException(status_code=404, detail=f"El usuario {user_id} no existe!")
