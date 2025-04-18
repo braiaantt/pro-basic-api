@@ -1,4 +1,4 @@
-from models.user_model import User
+from app.models.user_model import User
 
 users = [
     User(id=0, name="User 1", last_name="last name 1", age=50),

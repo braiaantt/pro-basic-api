@@ -1,5 +1,5 @@
-from models.user_model import User
-from database.fake_database import users
+from app.models.user_model import User
+from app.database.fake_database import users
 
 def get_all_users():
     return users
