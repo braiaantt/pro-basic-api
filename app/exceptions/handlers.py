@@ -17,8 +17,8 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         status_code=422,
         content={
             "success" : False,
-            "message" : "Error de validación",
-            "errors" : exc.errors,
+            "message" : "Valor ingresado no válido!",
+            "errors" : exc.errors(),
             "code" : 422
         }
     )
