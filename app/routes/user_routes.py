@@ -5,7 +5,7 @@ from models.user_model import User
 
 router = APIRouter()
 
-@router.get("/users")
+@router.get("")
 def get_all_users():
     users = user_services.get_all_users()
 
@@ -17,7 +17,7 @@ def get_all_users():
         }
     )
 
-@router.get("/users/{user_id}")
+@router.get("/{user_id}")
 def get_user(user_id: int):
     user = user_services.get_user(user_id)
 
@@ -39,7 +39,7 @@ def get_user(user_id: int):
             }
         )
     
-@router.post("/users")
+@router.post("")
 def create_user(user: User):
 
     if user_services.create_user(user):
@@ -59,7 +59,7 @@ def create_user(user: User):
             }
         )
     
-@router.put("/users")
+@router.put("")
 def update_user(updated_user: User):
     if user_services.update_user(updated_user):
         return JSONResponse(
@@ -78,7 +78,7 @@ def update_user(updated_user: User):
             }
         )
     
-@router.delete("/users/{user_id}")
+@router.delete("/{user_id}")
 def delete_user(user_id: int):
     if user_services.delete_user(user_id):
         return JSONResponse(
