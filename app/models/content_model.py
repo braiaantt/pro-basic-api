@@ -6,4 +6,9 @@ class Content(BaseModel):
     title: str
     duration: int
     content_url: str
-    rol_requiered: Rol
+    role_required: Rol
+
+class ContentPublic(BaseModel):
+    id: int
+    title: str
+    role_required: Rol
