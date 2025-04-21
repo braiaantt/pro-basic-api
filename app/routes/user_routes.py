@@ -18,7 +18,7 @@ def get_all_users():
 
 
 @router.get("/me")
-def get_my_user(user = Depends(auth.authenticate_user)):
+def get_my_user(user: User = Depends(auth.authenticate_user)):
     return {"success" : True,
             "data" : user.model_dump()}
 
