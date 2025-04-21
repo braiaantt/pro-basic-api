@@ -5,7 +5,7 @@ from app.middlewares import auth, verifiy
 
 router = APIRouter()
 
-@router.get("", status_code=200, dependencies=[Depends(verifiy.admin_rol)])
+@router.get("/", status_code=200, dependencies=[Depends(verifiy.admin_rol)])
 def get_all_users():
     users = user_services.get_all_users()
 
@@ -34,7 +34,7 @@ def get_user(user_id: int):
         raise HTTPException(status_code=404, detail=f"El usuario {user_id} no existe!")
 
 
-@router.post("", status_code=201)
+@router.post("/", status_code=201)
 def create_user(user: User):
 
     if user_services.create_user(user):
